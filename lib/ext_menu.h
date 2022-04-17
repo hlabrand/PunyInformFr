@@ -1,3 +1,22 @@
+! Cette extension PunyInform vous permet d'afficher des menus qui, côté
+! programmation, fonctionnent de la même facon sur toutes les versions
+! Z-Machine. La présentation dans les jeux z5 et plus ressemble à l'extension
+! DoMenu décrite dans le DM3 et qui fait à présent partie de la bibliothèque
+! standard Inform 6. Pour les jeux z3, la présentation est plus simple, mais
+! toute aussi fonctionnelle.
+!
+! Cette extension dévie de l'implantation standard de DoMenu sur un
+! point: quand vous assignez une valeur à la variable item_width, cette valeur
+! doit être la longueur totale de l'item ; par exemple si l'item est "Aide",
+! item_width doit être mis à 4, alors que dans la bibliothèque standard cette
+! valeur doit être la moitié de la largeur (donc 2, dans ce cas).
+
+! Si vous écrivez un jeu qui devrait être compilable à la fois avec PunyInform
+! et avec la bibliothèque standard, il est peut-être plus pratique de faire en
+! sorte que ext_menu utilise la même convention pour item_width que le DoMenu
+! de la bibliothèque standard. Pour avoir ce même comportement, définissez la
+! constante EXT_MENU_STDLIB_MODE avant d'inclure cette extension.
+
 System_file;
 
 Global menu_item;
@@ -157,7 +176,7 @@ Constant QKEY2__KY      = 'q';
 			if (i == 2) jump ReDisplay;
 			if (i == 3) break;
 
-			print "^[Please press SPACE.]";
+			print "^[Appuyez sur ESPACE.]";
 			@read_char 1 -> pkey; jump ReDisplay;
 		}
 	}

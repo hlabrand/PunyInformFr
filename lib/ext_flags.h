@@ -1,34 +1,39 @@
-! ext_flags.h, a library extension for PunyInform by Fredrik Ramsberg, adapted 
-! from flags.h by Adam Cadre.
+! ext_flags.h, une extension de Fredrik Ramsberg pour la bibliothèque
+! PunyInform, adaptée de flags.h par Adam Cadre.
 
-! This is a simple system to provide on/off flags that only take up one bit of
-! memory; thus, there's no need to waste memory (and global variables) by
-! declaring a variable such as "doneflag" or some such, allocating an entire
-! sixteen bits to a variable that will never be anything other than 0 or 1.
+! Ceci est un système simple pour faire des flags (on/off, actif/inactif,
+! levé/baissé) qui ne prennent qu'un bit de mémoire; comme ça, on ne gaspille
+! pas de mémoire (et de variables globales) avec des déclaration de variables
+! comme "flagfini" ou autre, qui prendraient 16 bits alors que la variable ne
+! prendra jamais d'autres valeurs que 0 ou 1.
 
-! Here's how to use it in your programs. After inclusing globals.h, 
-! set the constant FLAG_COUNT to the number of flags you need, then include
-! ext_flags.h.
+! Voici comment l'utiliser dans vos programmes. Après avoir inclus globals.h,
+! déclarez la constante FLAG_COUNT avec pour valeur le nombre de flags dont
+! vous avez besoin, puis incluez cette extension.
 !
-! When you start using a new flag, create a constant with a descriptive name.
-! You may also want to add a comment, or keep a list on the side regarding
-! the meaning of each flag.
+! Quand vous avez besoin d'un nouveau flag, créez une constante avec un nom
+! explicite. Et pourquoi pas aussi ajouter un commentaire, ou garder une liste
+! quelque part récapitulant ce que chaque flag veut dire.
 
-! Constant F_FED_PARROT 0; ! Has the parrot been fed?
-! Constant F_TICKET_OK 1; ! Has Hildegard booked her plane tickets with the correct credit card?
-! Constant F_SAVED_CAT 2;   ! Has the player saved the cat in the tree?
+! Constant F_PERROQUET_FAIM 0; ! Est-ce que le perroquet a besoin de manger ?
+! Constant F_BILLETS_OK 1;  ! Est-ce que Hildegarde a réservé ses billets
+!                           ! d'avion avec la bonne carte bancaire?
+! Constant F_SAUVE_CHAT 2;   ! Le joueur a-t-il sauvé le chat coincé dans
+!                            ! l'arbre?
 
-! You get the idea. Note that the first flag is flag #0.
+! Et ainsi de suite. Notez que le premier flag est le numéro 0.
 
-! Setting a flag on or off means calling the routine SetFlag(flag#) or
-! ClearFlag(flag#). To indicate that the player has saved the cat,
-! call "SetFlag(F_SAVED_CAT);", and to turn off that flag, call
-! "ClearFlag(F_SAVED_CAT);"  (Minus the quote marks, of course.)
+! Lever ou baisser un flag se fait en appelant la routine SetFlag(NuméroDuFlag)
+! ou ClearFlag(NuméroDuFlag). Pour indiquer que le joueur a sauvé le chat,
+! écrivez "SetFlag(F_SAUVE_CHAT);", et pour baisser le flag, écrivez
+! "ClearFlag(F_SAUVE_CHAT);"  (Sans les guillemets, bien sûr.)
 
-! Testing a flag is accomplished by calling FlagIsSet or FlagIsClear. So if you have
-! a piece of code that should only be run if the parrot has been fed, you would
-! enclose it in an "if (FlagIsSet(F_FED_PARROT)) { ... }" statement.
+! On teste un flag en appelant FlagIsSet ou FlagIsClear. Donc si vous avez
+! un bout de code qui ne doit s'exécuter que si le perroquet a faim, vous le
+! mettriez dans un bloc condtionnel "if (FlagIsSet(F_FED_PARROT)) { ... }".
 ! Naturally, you can test if a flag is clear by calling FlagIsClear instead.
+
+
 
 System_file;
 
