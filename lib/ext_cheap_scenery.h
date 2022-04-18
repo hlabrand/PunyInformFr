@@ -1,63 +1,68 @@
-! ext_cheap_scenery.h, a library extension for PunyInform by Fredrik Ramsberg
+! ext_cheap_scenery.h, une extension pour PunyInform par Fredrik Ramsberg
 !
-! This library extension provides a way to implement simple scenery objects
-! which can only be examined, using just a single object for the entire game.
-! This helps keep both the object count and the dynamic memory usage down.
+! Cette extension permet d'implanter des objets de décor (scenery) simples,
+! que l'on peut juste examiner, le tout en n'utilisant qu'un seul objet pour
+! tout le jeu. Ceci permet de minimiser le nombre d'objets et l'utilisation
+! de la mémoire dynamique.
 !
-! To use it, include this file after globals.h. Then add a property called
-! cheap_scenery to the locations where you want to add cheap scenery objects.
-! You can add up to ten cheap scenery objects to one location in this way. For
-! each scenery object, specify, in this order, one adjective, one noun, and one
-! description string or a routine to print one. Instead of an adjective, you
-! may give a synonym to the noun. If no adjective or synonym is needed,
-! use the value 1 in that position.
+! Pour l'utiliser, incluez ce fichier après globals.h. Puis, ajoutez une
+! propriété nommée cheap_scenery aux lieux où vous voulez ajouter des objets
+! de décor gratuits. Vous pouvez ainsi ajouter jusqu'à 10 objets de décor
+! gratuits par lieux. Pour chaque objet de décor, spécifiez, dans cet ordre,
+! un adjectif, un nom, et une chaîne de caractères de description ou une
+! routine en affichant une. Vous pouvez ajoutez un synonyme du nom au lieu
+! d'un adjectif. Si vous n'avez besoin ni de l'un ni de l'autre, écrivez
+! "1" en première position.
 !
-! Note: If you want to use this library extension is a Z-code version 3 game,
-! you must NOT declare cheap_scenery as a common property, or it will only be
-! able to hold one scenery object instead of ten.
+! Note : si vous voulez utiliser cette extension pour un jeu Z-Code version 3,
+! il ne FAUT PAS déclarer cheap_scenery comme une propriété globale
+! (common property), sinon, elle ne pourra pas contenir 10 objets de décor,
+! mais un seul.
 !
-! If you want to use the same description for a scenery object in several
-! locations, declare a constant to hold that string, and refer to the constant
-! in each location.
+! Si vous voulez utiliser la même description pour un objet de décor dans
+! plusieurs lieux, déclarez une constante correspondant à cette chaîne de
+! caractère, et faites référence à cette constante dans chacun des lieux.
 !
-! Before including this extension, you can also define a string or routine
-! called SceneryReply. If you do, it will be used whenever the player does
-! something to a scenery object other than examining it. If it's a string, it's
-! printed. If it's a routine it's called. If the routine prints something, it
-! should return true, otherwise false. The routine is called with two
-! parameters - the adjective/synonym and the noun listed in the cheap_scenery
-! property which was matched.
+! Avant d'inclure cette extension, vous pouvez aussi définir une routine ou
+! une chaîne de caractères nommée SceneryReply. Si vous le faites, elle sera
+! utilisée à chaque fois que le joueur fait une action impliquant l'objet
+! autre que l'examiner. Si c'est une chaîne de caractères, elle sera affichée.
+! Si c'est une routine, elle sera appelée. Si la routine affiche quelque
+! chose, elle devrait renvoyer true, et false dans le cas contraire. La
+! routine est appelée avec deux paramètres - l'adjectif/synonyme et le nom
+! listé dans la propriété cheap_scenery qui correspond à l'input.
 
 !
-! Example usage:
+! Exemple d'utilisation :
 
 ! [SceneryReply word1 word2 ;
 !   Push:
-!     if(location == RiverBank && word2 == 'water')
-!         "If you mean you want to swim, you should say so."
-!     "Now how would you do that?";
+!     if(location == RiverBank && word2 == 'eau')
+!         "Si vous voulez nagez, dites juste ~nager~."
+!     "Comment donc pourrais-je faire cela ?";
 !   default:
 !     rfalse;
 ! ];
 !
 ! Include "ext_cheap_scenery.h";
 !
-! Constant SCN_WATER = "The water is so beautiful this time of year, all clear and glittering.";
+! Constant SCN_WATER = "L'eau est si belle en cette saison, toute claire et
+! scintillante.";
 ! [SCN_SUN;
 !   deadflag = 1;
-!   "As you stare right into the sun, you feel a burning sensation in your eyes.
-!     After a while, all goes black. With no eyesight, you have little hope of
-!     completing your investigations.";
+!   "Vous fixez le soleil des yeux, et vous sentez que vos yeux brûlent.
+!     Au bout d'un moment, tout devient noir. Sans la vue, vous avez peu de
+!     chances d'aller au bout de votre enquête.";
 ! ];
 !
-! Object RiverBank "River Bank"
+! Object RiverBank "Bord de la rivière"
 !   with
-!	 description "The river is quite wide here. The sun reflects in the blue water, the birds are
-!      flying high up above.",
+!	 description "La rivière est plutôt large ici. Le soleil se reflète
+!        dans l'eau bleue, les oiseaux volent haut dans le ciel.",
 !	 cheap_scenery
-!      'blue' 'water' SCN_WATER
-!      'bird' 'birds' "They seem so careless."
-!      1 'sun' SCN_SUN,
+!      'bleue' 'eau' SCN_WATER
+!      'oiseau' 'oiseaux' "Ils ont l'air si insouciants."
+!      1 'soleil' SCN_SUN,
 !   has light;
 
 
